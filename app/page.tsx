@@ -55,7 +55,7 @@ export default function Home() {
                     className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 shadow-md hover:shadow-lg"
                     asChild
                   >
-                    <Link href="public/Final LR.pdf" download>
+                    <Link href="public/FinalLR.pdf" download>
                       Download Literature Review
                       <ArrowRight className="ml-2 h-4 w-4" />
                     </Link>

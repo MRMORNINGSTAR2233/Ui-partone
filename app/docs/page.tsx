@@ -19,7 +19,7 @@ export default function DocsPage() {
           <div className="flex items-center gap-2">
             <Link href="/" className="flex items-center gap-2 hover:opacity-90 transition-opacity">
               <Brain className="h-6 w-6 text-blue-600" />
-              <span className="text-xl font-bold">AI Research Platform</span>
+              <span className="text-xl font-bold">Deep Loop</span>
             </Link>
           </div>
           
@@ -343,10 +343,10 @@ print(response)`}
         <div className="container flex flex-col items-center justify-between gap-4 md:flex-row">
           <div className="flex items-center gap-2">
             <Brain className="h-6 w-6 text-blue-600" />
-            <span className="text-xl font-bold">AI Research Platform</span>
+            <span className="text-xl font-bold">Deep Loop</span>
           </div>
           <p className="text-center text-sm text-gray-500 md:text-left">
-            © 2025 AI Research Platform. All rights reserved.
+            © 2025 Deep Loop. All rights reserved.
           </p>
           <div className="flex gap-4">
             <Link href="/docs" className="text-sm text-gray-500 hover:text-blue-600">

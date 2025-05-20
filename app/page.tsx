@@ -16,7 +16,7 @@ export default function Home() {
         <div className="container flex h-16 items-center justify-between">
           <div className="flex items-center gap-2">
             <Brain className="h-6 w-6 text-blue-600" />
-            <span className="text-xl font-bold">AI Research Platform</span>
+            <span className="text-xl font-bold">Deep Loop</span>
           </div>
           
           {/* Mobile menu button */}
@@ -265,10 +265,10 @@ response = model.generate(
         <div className="container flex flex-col items-center justify-between gap-4 md:flex-row">
           <div className="flex items-center gap-2">
             <Brain className="h-6 w-6 text-blue-600" />
-            <span className="text-lg sm:text-xl font-bold">AI Research Platform</span>
+            <span className="text-lg sm:text-xl font-bold">Deep Loop</span>
           </div>
           <p className="text-center text-xs sm:text-sm text-gray-500 md:text-left">
-            © 2025 AI Research Platform. All rights reserved.
+            © 2025 Deep Loop. All rights reserved.
           </p>
           <div className="flex gap-4">
             <Link href="/docs" className="text-xs sm:text-sm text-gray-500 hover:text-blue-600">

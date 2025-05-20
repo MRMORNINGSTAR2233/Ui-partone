@@ -1,11 +1,16 @@
+"use client"
+
 import Link from "next/link"
-import { Brain, Github } from "lucide-react"
+import { Brain, Github, Menu, X } from "lucide-react"
+import { useState } from "react"
 
 import { Button } from "@/components/ui/button"
 import { Sidebar } from "@/components/docs-sidebar"
 import { CodeBlock } from "@/components/code-block"
 
 export default function DocsPage() {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [sidebarOpen, setSidebarOpen] = useState(false)
   return (
     <div className="flex min-h-screen flex-col">
       {/* Header - Added to match home page */}
@@ -17,7 +22,27 @@ export default function DocsPage() {
               <span className="text-xl font-bold">AI Research Platform</span>
             </Link>
           </div>
-          <nav className="flex items-center gap-6">
+          
+          {/* Mobile menu buttons */}
+          <div className="flex md:hidden items-center gap-2">
+            <button 
+              className="rounded-md p-2 text-gray-700 hover:bg-gray-100 mr-1"
+              onClick={() => setSidebarOpen(!sidebarOpen)}
+              aria-label="Toggle sidebar"
+            >
+              <Menu className="h-5 w-5" />
+            </button>
+            <button 
+              className="rounded-md p-2 text-gray-700 hover:bg-gray-100"
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              aria-label="Toggle menu"
+            >
+              {mobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+            </button>
+          </div>
+
+          {/* Desktop navigation */}
+          <nav className="hidden md:flex items-center gap-6">
             <Link href="/" className="text-sm font-medium transition-colors hover:text-blue-600">
               Home
             </Link>
@@ -36,25 +61,87 @@ export default function DocsPage() {
             </Button>
           </nav>
         </div>
+
+        {/* Mobile menu */}
+        {mobileMenuOpen && (
+          <div className="md:hidden border-t bg-white py-4">
+            <nav className="container flex flex-col gap-4">
+              <Link 
+                href="/" 
+                className="text-sm font-medium transition-colors hover:text-blue-600 px-2 py-1"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                Home
+              </Link>
+              <Link 
+                href="/docs" 
+                className="text-sm font-medium transition-colors text-blue-600 font-semibold px-2 py-1"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                Documentation
+              </Link>
+              <Link
+                href="https://github.com"
+                target="_blank"
+                className="text-sm font-medium transition-colors hover:text-blue-600 px-2 py-1"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                GitHub
+              </Link>
+              <Button 
+                asChild 
+                className="w-full"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                <Link href="/docs">Get Started</Link>
+              </Button>
+            </nav>
+          </div>
+        )}
       </header>
 
       <div className="container flex-1 items-start md:grid md:grid-cols-[220px_minmax(0,1fr)] md:gap-6 lg:grid-cols-[240px_minmax(0,1fr)] lg:gap-10">
-        <Sidebar />
+        {/* Mobile Sidebar */}
+        {sidebarOpen && (
+          <div className="fixed inset-0 z-40 md:hidden">
+            <div className="fixed inset-0 bg-black/20" onClick={() => setSidebarOpen(false)}></div>
+            <div className="fixed inset-y-0 left-0 z-40 w-64 bg-white shadow-lg">
+              <div className="flex h-16 items-center justify-between px-4 border-b">
+                <span className="text-lg font-medium">Documentation</span>
+                <button 
+                  className="rounded-md p-2 text-gray-700 hover:bg-gray-100"
+                  onClick={() => setSidebarOpen(false)}
+                >
+                  <X className="h-5 w-5" />
+                </button>
+              </div>
+              <div className="overflow-y-auto h-[calc(100vh-4rem)]">
+                <Sidebar />
+              </div>
+            </div>
+          </div>
+        )}
+        
+        {/* Desktop Sidebar */}
+        <div className="hidden md:block">
+          <Sidebar />
+        </div>
+        
         <main className="relative py-6 lg:gap-10 lg:py-8 xl:grid xl:grid-cols-[1fr_300px]">
           <div className="mx-auto w-full min-w-0">
-            <div className="space-y-2 bg-gradient-to-r from-blue-50 to-white p-6 rounded-lg shadow-sm mb-8">
-              <h1 className="scroll-m-20 text-4xl font-bold tracking-tight text-blue-900">Documentation</h1>
-              <p className="text-lg text-gray-600">Learn how to implement our fine-tuning + RAG setup</p>
+            <div className="space-y-2 bg-gradient-to-r from-blue-50 to-white p-4 sm:p-6 rounded-lg shadow-sm mb-6 sm:mb-8">
+              <h1 className="scroll-m-20 text-3xl sm:text-4xl font-bold tracking-tight text-blue-900">Documentation</h1>
+              <p className="text-base sm:text-lg text-gray-600">Learn how to implement our fine-tuning + RAG setup</p>
             </div>
 
             <div className="pb-12 pt-4">
               <div className="space-y-12">
-                <section id="setup" className="space-y-6 bg-white rounded-lg shadow-md p-6 border border-blue-50">
-                  <h2 className="scroll-m-20 border-b border-blue-100 pb-2 text-2xl font-semibold tracking-tight text-blue-800 first:mt-0">
+                <section id="setup" className="space-y-4 sm:space-y-6 bg-white rounded-lg shadow-md p-4 sm:p-6 border border-blue-50">
+                  <h2 className="scroll-m-20 border-b border-blue-100 pb-2 text-xl sm:text-2xl font-semibold tracking-tight text-blue-800 first:mt-0">
                     Setup
                   </h2>
                   <div className="space-y-4">
-                    <h3 className="scroll-m-20 text-xl font-semibold tracking-tight text-blue-700">
+                    <h3 className="scroll-m-20 text-lg sm:text-xl font-semibold tracking-tight text-blue-700">
                       Environment Setup
                     </h3>
                     <p>
@@ -121,8 +208,8 @@ retriever = Retriever(document_store=doc_store, top_k=5)`}
                   </div>
                 </section>
 
-                <section id="training" className="space-y-6 bg-white rounded-lg shadow-md p-6 border border-blue-50">
-                  <h2 className="scroll-m-20 border-b border-blue-100 pb-2 text-2xl font-semibold tracking-tight text-blue-800 first:mt-0">
+                <section id="training" className="space-y-4 sm:space-y-6 bg-white rounded-lg shadow-md p-4 sm:p-6 border border-blue-50">
+                  <h2 className="scroll-m-20 border-b border-blue-100 pb-2 text-xl sm:text-2xl font-semibold tracking-tight text-blue-800 first:mt-0">
                     Training
                   </h2>
                   <div className="space-y-4">
